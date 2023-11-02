@@ -86,7 +86,7 @@ class DefaultApiClient {
             device_name: "mocked_device_name",
         });
 
-        const data = this._response;
+        const data = this._response.data;
         return data.split("|")[1];
     }
 }

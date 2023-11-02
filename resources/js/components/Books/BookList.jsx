@@ -4,7 +4,7 @@ import { Box, Pagination } from "@mui/material";
 import BookItemList from "./BookItemList";
 import SearchBar from "../SearchBar";
 
-const BookList = () => {
+const BookList = ({ isAuth }) => {
     const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({
         page: 1,
@@ -66,11 +66,14 @@ const BookList = () => {
                     return (
                         <BookItemList
                             key={item.id}
+                            isAuth={isAuth}
+                            id={item.id}
                             title={item.title}
                             author={item.author}
                             description={item.description}
                             published={item.year_published}
                             query={query}
+                            category={item.category?.name}
                         />
                     );
                 })}
