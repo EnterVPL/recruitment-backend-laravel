@@ -16,6 +16,9 @@ class DefaultApiClient {
 
     constructor() {}
 
+    /**
+     * @returns {DefaultApiClient}
+     */
     static getSelfInstance() {
         if (typeof this._selfinstance === "undefined") {
             this._selfinstance = new DefaultApiClient();
@@ -88,6 +91,13 @@ class DefaultApiClient {
 
         const data = this._response.data;
         return data.split("|")[1];
+    }
+
+    async getCategories() {
+        const axiosInstance = this.getAxiosInstance();
+        this._response = await axiosInstance.get(`/categories`);
+        const data = this._response.data;
+        return data;
     }
 }
 

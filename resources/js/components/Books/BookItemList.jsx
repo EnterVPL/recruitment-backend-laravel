@@ -21,6 +21,7 @@ const BookItemList = ({
     published,
     query = "",
     category = null,
+    onEdit = () => {},
 }) => {
     const [openDialog, setOpenDialog] = useState(false);
 
@@ -59,7 +60,14 @@ const BookItemList = ({
             </Card>
             <Dialog open={openDialog} closeDialog={toogleDialog}>
                 {isAuth ? (
-                    <BookEdit id={id} isOpen={openDialog} />
+                    <BookEdit
+                        id={id}
+                        isOpen={openDialog}
+                        handleAction={() => {
+                            toogleDialog();
+                            onEdit();
+                        }}
+                    />
                 ) : (
                     <BookDetails id={id} isOpen={openDialog} />
                 )}

@@ -10,6 +10,7 @@ const BookList = ({ isAuth }) => {
         page: 1,
     });
     const [query, setQuery] = useState("");
+    const [pingRefresh, setPingRefresh] = useState(false);
     let timeout = setTimeout(() => {}, 0);
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const BookList = ({ isAuth }) => {
             });
         };
         getData();
-    }, [setData, pagination.page, query]);
+    }, [setData, pagination.page, query, pingRefresh]);
 
     const changePage = (page) => {
         setPagination({
@@ -74,6 +75,9 @@ const BookList = ({ isAuth }) => {
                             published={item.year_published}
                             query={query}
                             category={item.category?.name}
+                            onEdit={() => {
+                                setPingRefresh(!pingRefresh);
+                            }}
                         />
                     );
                 })}
