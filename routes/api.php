@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,3 +46,5 @@ Route::middleware('auth:sanctum')->resource('books', BookController::class)->onl
 
 Route::resource('books', BookController::class)
     ->only('index', 'show');
+
+Route::get('categories', [CategoryController::class, 'index']);
