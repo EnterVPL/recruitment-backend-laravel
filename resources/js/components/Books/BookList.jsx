@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { DefaultClient } from "../../default.http.client";
-import { Box, Button, Dialog, DialogActions, Pagination } from "@mui/material";
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    InputLabel,
+    MenuItem,
+    Pagination,
+    Select,
+} from "@mui/material";
 import BookItemList from "./BookItemList";
 import SearchBar from "../SearchBar";
 import BookAdd from "./BookAdd";
@@ -13,6 +22,8 @@ const BookList = ({ isAuth }) => {
     const [query, setQuery] = useState("");
     const [pingRefresh, setPingRefresh] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState(null);
 
     const toogleDialog = () => {
         setOpenDialog(!openDialog);
@@ -24,7 +35,8 @@ const BookList = ({ isAuth }) => {
         const getData = async () => {
             const responseData = await DefaultClient.getBooks(
                 pagination.page,
-                query
+                query,
+                category
             );
             setData(responseData.data);
             setPagination({
@@ -34,7 +46,15 @@ const BookList = ({ isAuth }) => {
             });
         };
         getData();
-    }, [setData, pagination.page, query, pingRefresh]);
+    }, [setData, pagination.page, query, pingRefresh, category]);
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const categories = await DefaultClient.getCategories();
+            setCategories(categories);
+        };
+        getCategories();
+    }, [setCategories]);
 
     const changePage = (page) => {
         setPagination({
@@ -72,6 +92,28 @@ const BookList = ({ isAuth }) => {
                 }}
             />
             <Button onClick={toogleDialog}>Add Book</Button>
+
+            <InputLabel id="search-category-label">Category filter</InputLabel>
+
+            <Select
+                sx={{ width: 200 }}
+                labelId="search-category-label"
+                label="Category"
+                onChange={(event) => {
+                    setCategory(event.target.value);
+                }}
+            >
+                <MenuItem value={null}>
+                    <em>All</em>
+                </MenuItem>
+                {categories.map((categoryItem) => {
+                    return (
+                        <MenuItem value={categoryItem.id}>
+                            {categoryItem.name}
+                        </MenuItem>
+                    );
+                })}
+            </Select>
             <Pagination
                 sx={{ marginTop: "8px", marginBottom: "8px" }}
                 count={pagination.maxPage}
@@ -91,6 +133,7 @@ const BookList = ({ isAuth }) => {
                 {data.map((item) => {
                     return (
                         <BookItemList
+                            key={item.id}
                             isAuth={isAuth}
                             id={item.id}
                             title={item.title}

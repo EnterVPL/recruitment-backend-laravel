@@ -23,7 +23,8 @@ class SearchBookRequest extends FormRequest
     {
         return [
             'page' => 'required|integer|min:1',
-            'search' => 'nullable|string|max:255'
+            'search' => 'nullable|string|max:255',
+            'category' => 'integer|min:1|nullable|exists:categories,id'
         ];
     }
 }

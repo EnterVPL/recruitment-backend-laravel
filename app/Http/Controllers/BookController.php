@@ -15,10 +15,19 @@ class BookController extends Controller
     {
         $page = $request->get('page');
         $search = $request->get('search');
+        $category = $request->get('category');
 
-        $books = Book::where('title', 'like', "%{$search}%")
-            ->orWhere('author', 'like', "%{$search}%")
-            ->paginate(10, ['*'], 'page', $page);
+        $query = Book::where(function ($query) use ($category, $search) {
+            if ($category !== null) {
+                $query->where('category_id', $category);
+            }
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%");
+            });
+        });
+
+        $books = $query->paginate(10, ['*'], 'page', $page);
 
         $books->load('category');
 

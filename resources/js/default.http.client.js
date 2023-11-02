@@ -38,12 +38,13 @@ class DefaultApiClient {
         });
     }
 
-    async getBooks(page, query = "") {
+    async getBooks(page, query = "", category = null) {
         const axiosInstance = this.getAxiosInstance();
         this._response = await axiosInstance.get("/books/", {
             params: {
                 page: page,
                 search: query,
+                category: category,
             },
         });
 
