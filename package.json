@@ -6,8 +6,19 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "axios": "^1.1.2",
+        "@vitejs/plugin-react": "^4.1.0",
+        "axios": "^1.6.0",
         "laravel-vite-plugin": "^0.8.0",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@mui/icons-material": "^5.14.16",
+        "@mui/material": "^5.14.16",
+        "mark.js": "^8.11.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-mark.js": "^9.0.7"
     }
 }
