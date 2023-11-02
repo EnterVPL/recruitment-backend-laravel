@@ -27,3 +27,7 @@
 1. Run `sail up -d`
 1. Run `sail npm run dev`
 1. Open browser at <http://localhost/>
+
+## Postman
+
+All postamn collections you find in the `postman_collections` directory

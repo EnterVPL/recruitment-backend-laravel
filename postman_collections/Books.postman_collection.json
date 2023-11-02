@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "b56015d9-9a6c-431c-a8c4-f431cabcca44",
+		"name": "Books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19192858"
+	},
+	"item": [
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/books?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/books/22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"books",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "oVouC0cwl5wHEouGX4G6dthoxcXaVtlNP7f0eDaHf918cf8b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Assumenda officiis saepe cupiditate qui omnis.\",\n    \"author\": \"Dr. Hester Rath MD\",\n    \"year_published\": \"2000\",\n    \"description\": \"Ut voluptas culpa vitae eos quo delectus. Voluptatum amet asperiores reprehenderit tempora. Incidunt voluptates odit quia neque.\",\n    \"available_copies\": 96,\n    \"created_at\": \"2023-10-31T17:26:22.000000Z\",\n    \"updated_at\": \"2023-10-31T17:26:22.000000Z\",\n    \"category_id\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "oVouC0cwl5wHEouGX4G6dthoxcXaVtlNP7f0eDaHf918cf8b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Assumenda officiis saepe cupiditate qui omnis.\",\n    \"author\": \"Dr. Hester Rath MD\",\n    \"year_published\": \"2000\",\n    \"description\": \"Ut voluptas culpa vitae eos quo delectus. Voluptatum amet asperiores reprehenderit tempora. Incidunt voluptates odit quia neque.\",\n    \"available_copies\": 96,\n    \"created_at\": \"2023-10-31T17:26:22.000000Z\",\n    \"updated_at\": \"2023-10-31T17:26:22.000000Z\",\n    \"category_id\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/books/113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"books",
+						"113"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "oVouC0cwl5wHEouGX4G6dthoxcXaVtlNP7f0eDaHf918cf8b",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/api/books/113",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"books",
+						"113"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
