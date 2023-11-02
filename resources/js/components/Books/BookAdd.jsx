@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { DefaultClient } from "../../default.http.client";
 
-const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
+const BookAdd = ({ isOpen = false, handleAction = () => {} }) => {
     const [author, setAuthor] = useState("");
     const [title, setTitle] = useState("");
     const [availableCopies, setAvailableCopies] = useState("");
@@ -20,24 +20,17 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        const getData = async () => {
-            const data = await DefaultClient.getBook(id);
-            setAuthor(data.author);
-            setTitle(data.title);
-            setYearPublished(data.year_published);
-            setAvailableCopies(data.available_copies);
-            setDescription(data.description);
-            setCategory(data.category_id);
+        const getCategories = async () => {
             const categories = await DefaultClient.getCategories();
             setCategories(categories);
         };
         if (isOpen) {
-            getData();
+            getCategories();
         }
     }, [isOpen]);
 
     const onSave = async () => {
-        await DefaultClient.editBook(id, {
+        await DefaultClient.addBook({
             author: author,
             title: title,
             year_published: yearPublished,
@@ -48,11 +41,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
         handleAction();
     };
 
-    const onRemove = async () => {
-        await DefaultClient.removeBook(id);
-        handleAction();
-    };
-
     return (
         <>
             {isOpen ? (
@@ -60,7 +48,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                     <CardContent>
                         <TextField
                             sx={{ marginBottom: 2 }}
-                            InputLabelProps={{ shrink: true }}
                             label="author"
                             value={author}
                             onChange={(event) => {
@@ -69,7 +56,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                         />
                         <TextField
                             sx={{ marginBottom: 2 }}
-                            InputLabelProps={{ shrink: true }}
                             label="title"
                             value={title}
                             onChange={(event) => {
@@ -79,7 +65,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                         <TextField
                             sx={{ marginBottom: 2 }}
                             type="number"
-                            InputLabelProps={{ shrink: true }}
                             label="year_published"
                             value={yearPublished}
                             onChange={(event) => {
@@ -89,7 +74,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                         <TextField
                             sx={{ marginBottom: 2 }}
                             type="number"
-                            InputLabelProps={{ shrink: true }}
                             label="available_copies"
                             value={availableCopies}
                             onChange={(event) => {
@@ -98,7 +82,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                         />
                         <TextField
                             sx={{ marginBottom: 2 }}
-                            InputLabelProps={{ shrink: true }}
                             label="description"
                             value={description}
                             onChange={(event) => {
@@ -126,13 +109,6 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
                         <Button onClick={onSave} variant="contained">
                             Save
                         </Button>
-                        <Button
-                            onClick={onRemove}
-                            variant="outlined"
-                            color="error"
-                        >
-                            Remove
-                        </Button>
                     </CardActions>
                 </Card>
             ) : null}
@@ -140,4 +116,4 @@ const BookEdit = ({ id, isOpen = false, handleAction = () => {} }) => {
     );
 };
 
-export default BookEdit;
+export default BookAdd;

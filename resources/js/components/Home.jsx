@@ -8,11 +8,15 @@ const Home = () => {
 
     const toggleLogin = async () => {
         if (token == "") {
-            setToken(await DefaultClient.auth("test@example.com", "password"));
-            DefaultClient.accessToken = token;
+            const accessToken = await DefaultClient.auth(
+                "test@example.com",
+                "password"
+            );
+            setToken(accessToken);
+            DefaultClient.accessToken = accessToken;
         } else {
             setToken("");
-            DefaultClient.accessToken = token;
+            DefaultClient.accessToken = "";
         }
     };
 

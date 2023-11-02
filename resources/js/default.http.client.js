@@ -75,7 +75,7 @@ class DefaultApiClient {
 
     async addBook(params) {
         const axiosInstance = this.getAxiosInstance();
-        this._response = await axiosInstance.put(`/books/`, params);
+        this._response = await axiosInstance.post(`/books/`, params);
 
         const data = this._response.data;
         return data;

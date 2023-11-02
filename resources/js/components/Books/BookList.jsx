@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { DefaultClient } from "../../default.http.client";
-import { Box, Pagination } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, Pagination } from "@mui/material";
 import BookItemList from "./BookItemList";
 import SearchBar from "../SearchBar";
+import BookAdd from "./BookAdd";
 
 const BookList = ({ isAuth }) => {
     const [data, setData] = useState([]);
@@ -11,7 +12,13 @@ const BookList = ({ isAuth }) => {
     });
     const [query, setQuery] = useState("");
     const [pingRefresh, setPingRefresh] = useState(false);
-    let timeout = setTimeout(() => {}, 0);
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const toogleDialog = () => {
+        setOpenDialog(!openDialog);
+    };
+
+    let searchTimeout = setTimeout(() => {}, 0);
 
     useEffect(() => {
         const getData = async () => {
@@ -39,14 +46,32 @@ const BookList = ({ isAuth }) => {
 
     return (
         <>
+            <Dialog open={openDialog} closeDialog={toogleDialog}>
+                {isAuth ? (
+                    <BookAdd
+                        isOpen={openDialog}
+                        handleAction={() => {
+                            toogleDialog();
+                            setPingRefresh(!pingRefresh);
+                        }}
+                    />
+                ) : null}
+                <DialogActions>
+                    <Button autoFocus onClick={toogleDialog}>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <SearchBar
                 setSearchQuery={(value) => {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
                         setQuery(value);
                     }, 1000);
                 }}
             />
+            <Button onClick={toogleDialog}>Add Book</Button>
             <Pagination
                 sx={{ marginTop: "8px", marginBottom: "8px" }}
                 count={pagination.maxPage}
@@ -66,7 +91,6 @@ const BookList = ({ isAuth }) => {
                 {data.map((item) => {
                     return (
                         <BookItemList
-                            key={item.id}
                             isAuth={isAuth}
                             id={item.id}
                             title={item.title}
